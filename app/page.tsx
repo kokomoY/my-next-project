@@ -56,7 +56,7 @@ export default function Home() {
           width={4000}
           height={1200}
         />
-        <img className={styles.bgimg} src="/img-mv.jpg" alt="" />
+      
       </section>
       <section className={styles.news}>
         <h2 className={styles.newsTitle}>News</h2>
