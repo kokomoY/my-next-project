@@ -14,29 +14,28 @@ export type Member = {
 
 export type Category = {
     name: string;
-}
+
+} & MicroCMSListContent;
 
 export type News = {
-    id: string;
     title: string;
-    category: {
-        name: string;
-    };
-    publishedAt: string;
-    createdAt: string;
-};
+    description: string;
+    content: string;
+    thumbnail?: MicroCMSImage;
+    category: Category;
+} & MicroCMSListContent;
 
-if (!process.env.MICROCMS__SERVICE_DOMAIN) {
-    throw new Error("MICROCMS__SERVICE_DOMAIN is required");
+if (!process.env.MICROCMS_SERVICE_DOMAIN) {
+    throw new Error("MICROCMS_SERVICE_DOMAIN is required");
 }
 
-if (!process.env.MICROCMS__API_KEY) {
-    throw new Error("MICROCMS__API_KEY is required");
+if (!process.env.MICROCMS_API_KEY) {
+    throw new Error("MICROCMS_API_KEY is required");
 }
 
 const client = createClient({
-    serviceDomain: process.env.MICROCMS__SERVICE_DOMAIN,
-    apiKey: process.env.MICROCMS__API_KEY,
+    serviceDomain: process.env.MICROCMS_SERVICE_DOMAIN,
+    apiKey: process.env.MICROCMS_API_KEY,
 });
 
 export const getMembersList = async (queries?: MicroCMSQueries) => {
@@ -45,5 +44,14 @@ export const getMembersList = async (queries?: MicroCMSQueries) => {
             endpoint: "members",
             queries,
         });
+    return listData;
+};
+
+export const getNewsList = async (queries?: MicroCMSQueries) => {
+    const listData = await client
+    .getList<News>({
+        endpoint: "news",
+        queries,
+    });
     return listData;
 };
