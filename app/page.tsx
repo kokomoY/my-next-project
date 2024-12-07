@@ -1,9 +1,9 @@
 import styles from "./page.module.css";
 import Image from "next/image";
 import { getNewsList } from "@/app/_libs/microcms";
-import { TOP_NEWS__LIMIT }  from "./constants";
+import { TOP_NEWS__LIMIT } from "./_constants";
 import NewList from "@/app/_components/NewList";
-import ButtonLink from "@/app/_components/ButtonLink"  
+import ButtonLink from "@/app/_components/ButtonLink";
 
 export default async function Home() {
   const data = await getNewsList({
@@ -26,7 +26,6 @@ export default async function Home() {
           width={4000}
           height={1200}
         />
-      
       </section>
       <section className={styles.news}>
         <h2 className={styles.newsTitle}>News</h2>
@@ -38,4 +37,3 @@ export default async function Home() {
     </>
   );
 }
-
