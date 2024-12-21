@@ -2,7 +2,7 @@ import styles from "./page.module.css";
 import Image from "next/image";
 import { getNewsList } from "@/app/_libs/microcms";
 import { TOP_NEWS__LIMIT } from "./_constants";
-import NewList from "@/app/_components/NewsList";
+import NewsList from "@/app/_components/NewsList";
 import ButtonLink from "@/app/_components/ButtonLink";
 
 export default async function Home() {
@@ -29,7 +29,7 @@ export default async function Home() {
       </section>
       <section className={styles.news}>
         <h2 className={styles.newsTitle}>News</h2>
-        <NewList news={data.contents} />
+        <NewsList news={data.contents} />
         <div className={styles.newLink}>
           <ButtonLink href="/news">もっとみる</ButtonLink>
         </div>
