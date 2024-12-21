@@ -1,50 +1,38 @@
-'use client';
-
-import Image from 'next/image';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { NEWS_LIST_LIMIT } from '@/app/_constants';
+import Link from 'next/link';
 import styles from './index.module.css';
-import { Suspense } from 'react';
 
-function SearchFieldComponent() {
-  const router = useRouter();
-  const searchParams = useSearchParams();
+type Props = {
+  totalCount: number;
+  current?: number;
+  basePath?: string;
+};
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const q = e.currentTarget.elements.namedItem('q');
-    if (q instanceof HTMLInputElement) {
-      const params = new URLSearchParams();
-      params.set('q', q.value.trim());
-      router.push(`/news/search?${params.toString()}`);
-    }
-  };
-
-  return (
-    <form onSubmit={handleSubmit} className={styles.form}>
-      <label className={styles.search}>
-        <Image
-          src="/search.svg"
-          alt="検索"
-          width={16}
-          height={16}
-          loading="eager"
-        />
-        <input
-          type="text"
-          name="q"
-          defaultValue={searchParams.get('q') ?? undefined}
-          placeholder="キーワードを入力"
-          className={styles.searchInput}
-        />
-      </label>
-    </form>
+export default function Pagination({
+  totalCount,
+  current = 1,
+  basePath = '/news',
+}: Props) {
+  const pages = Array.from(
+    { length: Math.ceil(totalCount / NEWS_LIST_LIMIT) },
+    (_, i) => i + 1
   );
-}
 
-export default function SearchField() {
   return (
-    <Suspense>
-      <SearchFieldComponent />
-    </Suspense>
+    <nav>
+      <ul className={styles.container}>
+        {pages.map((p) => (
+          <li className={styles.list} key={p}>
+            {current !== p ? (
+              <Link href={`${basePath}/p/${p}`} className={styles.item}>
+                {p}
+              </Link>
+            ) : (
+              <span className={`${styles.item} ${styles.current}`}>{p}</span>
+            )}
+          </li>
+        ))}
+      </ul>
+    </nav>
   );
 }
