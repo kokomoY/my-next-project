@@ -3,7 +3,9 @@ import Sheet from "@/app/_components/Sheet";
 
 type Props = {
     children: React.ReactNode;
-};
+};0
+
+export const revalidate = 60;
 
 export default function NewLayout({ children }: Props) {
     return (
