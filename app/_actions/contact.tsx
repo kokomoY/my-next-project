@@ -14,6 +14,7 @@ export async function createContactData(_prevState: any, formData: FormData) {
     email: formData.get("email") as string,
     message: formData.get("message") as string,
   };
+
   if (!rawFormData.lastname) {
     return {
       status: "error",
