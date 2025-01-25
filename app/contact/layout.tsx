@@ -2,8 +2,10 @@ import Hero from "@/app/_components/Hero";
 import Sheet from "@/app/_components/Sheet";
 
 export const metadata = {
-  title: "コンタクト｜シンプルなコーポレートサイト",
+  title: "お問い合わせ",
 };
+
+
 
 type Props = {
   children: React.ReactNode;
